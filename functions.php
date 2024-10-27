@@ -1,45 +1,95 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
+/**
+ * 配置主题的选项表单。
+ *
+ * @param object $form 表单对象
+ */
 function themeConfig($form) {
-    $logoUrl = new Typecho_Widget_Helper_Form_Element_Text('logoUrl', NULL, NULL, _t('站点LOGO地址'), _t('在这里填入一个图片URL地址, 以在网站标题前加上一个LOGO'));
+    // 站点 LOGO 地址配置
+    $logoUrl = new Typecho_Widget_Helper_Form_Element_Text(
+        'logoUrl',
+        NULL,
+        NULL,
+        _t('站点LOGO地址'),
+        _t('在这里填入一个图片URL地址, 以在网站标题前加上一个LOGO')
+    );
     $form->addInput($logoUrl);
-    
-    $sidebarBlock = new Typecho_Widget_Helper_Form_Element_Checkbox('sidebarBlock', 
-    array('ShowRecentPosts' => _t('显示最新文章'),
-    'ShowRecentComments' => _t('显示最近回复'),
-    'ShowCategory' => _t('显示分类'),
-    'ShowArchive' => _t('显示归档'),
-    'ShowOther' => _t('显示其它杂项')),
-    array('ShowRecentPosts', 'ShowRecentComments', 'ShowCategory', 'ShowArchive', 'ShowOther'), _t('侧边栏显示'));
-    
+
+    // 设置文章摘要的输出产生过户
+    $excerptLength = new Typecho_Widget_Helper_Form_Element_Text(
+        'excerptLength',
+        NULL, '100',
+        _t('摘要长度'),
+        _t('设置文章摘要的最大字数，默认为10')
+    );
+    $form->addInput($excerptLength);
+
+    // 侧边栏显示配置
+    $sidebarBlock = new Typecho_Widget_Helper_Form_Element_Checkbox(
+        'sidebarBlock',
+        array(
+            'ShowRecentPosts' => _t('显示最新文章'),
+            'ShowCategory' => _t('显示分类'),
+            'ShowArchive' => _t('显示归档'),
+            'ShowOther' => _t('显示其它杂项')
+        ),
+        array('ShowRecentPosts', 'ShowCategory', 'ShowArchive', 'ShowOther'),
+        _t('侧边栏显示')
+    );
     $form->addInput($sidebarBlock->multiMode());
+
+    // 页脚ICP备案信息配置
+    $footerICPNumber = new Typecho_Widget_Helper_Form_Element_Text(
+        'footerICPNumber',
+        NULL, NULL,
+        _t('ICP备案信息'),
+        _t('工信部ICP备案请在此填写，支持\<a\>标签')
+    );
+    $form->addInput($footerICPNumber);
+
+    // 页脚网安备案信息配置
+    $footerSecurityRecord = new Typecho_Widget_Helper_Form_Element_Textarea(
+        'footerSecurityRecord',
+        NULL, NULL,
+        _t('网安备案信息'),
+        _t('全国互联网公安备案请在此填写，支持\<a\>标签')
+    );
+    $form->addInput($footerSecurityRecord);
+
+    // 页脚其他说明信息配置
+    $footerRecord = new Typecho_Widget_Helper_Form_Element_Textarea(
+        'footerRecord',
+        NULL,
+        NULL,
+        _t('页脚右侧信息配置'),
+        _t('请在此输入你需要展示在页面角右侧其他说明信息，支持\<a\>标签')
+    );
+    $form->addInput($footerRecord);
 }
 
-
-/*
-function themeFields($layout) {
-    $logoUrl = new Typecho_Widget_Helper_Form_Element_Text('logoUrl', NULL, NULL, _t('站点LOGO地址'), _t('在这里填入一个图片URL地址, 以在网站标题前加上一个LOGO'));
-    $layout->addItem($logoUrl);
-}
-*/
+/**
+ * 获取文章缩略图。
+ *
+ * @param int $cid 文章的 CID
+ * @return string 缩略图的 URL 或者空字符串
+ */
 function img_postthumb($cid) {
-   $db = Typecho_Db::get();
-   $rs = $db->fetchRow($db->select('table.contents.text')
-       ->from('table.contents')
-       ->where('table.contents.cid=?', $cid)
-       ->order('table.contents.cid', Typecho_Db::SORT_ASC)
-       ->limit(1));
+    $db = Typecho_Db::get();
+    $sql = $db->select('table.contents.text')
+        ->from('table.contents')
+        ->where('table.contents.cid = ?', $cid)
+        ->order('table.contents.cid', Typecho_Db::SORT_ASC)
+        ->limit(1);
 
-   preg_match_all("/\<img.*?src\=\"(.*?)\"[^>]*>/i", $rs['text'], $thumbUrl);  //通过正则式获取图片地址
-   $img_src = $thumbUrl[1][0];  //将赋值给img_src
-   $img_counter = count($thumbUrl[0]);  //一个src地址的计数器
-
-   switch ($img_counter > 0) {
-       case $allPics = 1:
-           echo $img_src;  //当找到一个src地址的时候，输出缩略图
-           break;
-       default:
-           echo "";  //没找到(默认情况下)，不输出任何内容
-   };
+    $rs = $db->fetchRow($sql);
+    if (isset($rs['text'])) {
+        preg_match_all("/<img.*?src=\"(.*?)\"[^>]*>/i", $rs['text'], $matches);
+        if (!empty($matches[1])) {
+            return $matches[1][0];
+        }
+    }
+    return '';  // 如果没有找到图片，则返回空字符串
 }
+?>

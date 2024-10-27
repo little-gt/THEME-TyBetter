@@ -1,5 +1,17 @@
-![封面](https://github.com/little-gt/THEME-TyBetter/screenshot.png)
+![封面](/screenshot.png)
 
 > 基于Typecho官方主题二次修改制作，全盘进行Material Design化，保持官方主题的精简与快捷，具有访问迅速、SEO良好的特点，适用于小内存VPS或者是网络不算快的网站使用。
-> 作者：[烟花易冷](https://www.zzfly.net/tybetter/)
+> 
+> 主题作者：[烟花易冷](https://www.zzfly.net/tybetter/)
+> 
 > 二次开发：@little-gt
+
+## 新特性介绍
+
+------------
+
+1. 修改了页面底部的页脚设计，支持通过设置添加ICP备案、网安备案以及其他说明的信息；
+2. 修改了输出摘要的配置方式，从修改代码变更到通过主题设置进行修改和配置；
+3. 优化了404页面的按钮样式。
+4. 修改了资源引用为国内字节跳动公共静态资源库的CDN链接，优化国内用户访问体验。
+5. 其他修复和优化。
