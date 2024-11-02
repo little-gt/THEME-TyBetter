@@ -2,9 +2,6 @@
 <?php $this->need('header.php'); ?>
 
     <style>
-        .error-page {
-            text-align: center;
-        }
         .post-title {
             color: #333;
             font-size: 2em;
@@ -36,7 +33,7 @@
             <p><?php _e('很抱歉，你想要访问的内容可能已被删除或者移动，不如搜索一下吧: '); ?></p>
             <form method="get" action="<?php $this->options->siteUrl(); ?>/search">
                 <p><input type="text" name="s" class="text" placeholder="<?php _e('输入关键词...'); ?>" autofocus /></p>
-                <p><button type="submit" class="submit modern-button"><?php _e('搜索'); ?></button></p>
+                <p><button type="submit" class="submit modern-button"><?php _e('搜索'); ?></button> | 或者也可以<a href="<?php $this->options->siteUrl(); ?>" target="_blank" style="text-decoration: none;">返回首页</a></p>
             </form>
         </div>
 
