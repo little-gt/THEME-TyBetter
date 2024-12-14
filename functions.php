@@ -17,12 +17,12 @@ function themeConfig($form) {
     );
     $form->addInput($logoUrl);
 
-    // 设置文章摘要的输出产生过户
+    // 设置文章摘要的输出字符长度
     $excerptLength = new Typecho_Widget_Helper_Form_Element_Text(
         'excerptLength',
         NULL, '100',
         _t('摘要长度'),
-        _t('设置文章摘要的最大字数，默认为10')
+        _t('设置文章摘要的最大字数，默认为100')
     );
     $form->addInput($excerptLength);
 
@@ -67,6 +67,25 @@ function themeConfig($form) {
         _t('请在此输入你需要展示在页面角右侧其他说明信息，支持\<a\>标签')
     );
     $form->addInput($footerRecord);
+
+    // reCAPTCHA Site Key 和 Secret Key 配置
+    $recaptchaSiteKey = new Typecho_Widget_Helper_Form_Element_Text(
+        'recaptchaSiteKey',
+        NULL,
+        NULL,
+        _t('reCAPTCHA Site Key'),
+        _t('请输入您的reCAPTCHA Site Key')
+    );
+    $form->addInput($recaptchaSiteKey);
+
+    $recaptchaSecretKey = new Typecho_Widget_Helper_Form_Element_Text(
+        'recaptchaSecretKey',
+        NULL,
+        NULL,
+        _t('reCAPTCHA Secret Key'),
+        _t('请输入您的reCAPTCHA Secret Key')
+    );
+    $form->addInput($recaptchaSecretKey);
 }
 
 /**
@@ -92,4 +111,3 @@ function img_postthumb($cid) {
     }
     return '';  // 如果没有找到图片，则返回空字符串
 }
-?>

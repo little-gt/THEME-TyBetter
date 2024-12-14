@@ -3,9 +3,13 @@
     <?php $this->comments()->to($comments); ?>
     <?php if ($comments->have()): ?>
         <h3><?php $this->commentsNum(_t('暂无留言'), _t('只有一条留言'), _t('已有 %d 条留言')); ?></h3>
-
-        <?php $comments->listComments(); ?>
-
+        <?php while($comments->next()): ?>
+            <div class="comment" id="comment-<?php $comments->theId(); ?>">
+                <p><?php $comments->author(); ?> | <?php echo IPLocation_Plugin::displayIPLocation($comments->ip); ?></p>
+                <p><?php $comments->content(); ?></p>
+                <p class="comment-meta"><?php $comments->date(); ?></p>
+            </div>
+        <?php endwhile; ?>
         <?php $comments->pageNav('&laquo; 前一页', '后一页 &raquo;'); ?>
     <?php endif; ?>
 
@@ -37,6 +41,8 @@
                     <label for="textarea" class="required"><?php _e('内容'); ?></label>
                     <textarea rows="8" cols="50" name="text" id="textarea" class="textarea" required ><?php $this->remember('text'); ?></textarea>
                 </p>
+                <div class="g-recaptcha" data-sitekey="<?php echo htmlspecialchars($this->options->theme->recaptchaSiteKey); ?>"></div>
+                <script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>
                 <p>
                     <button type="submit" class="submit"><?php _e('提交留言'); ?></button>
                 </p>

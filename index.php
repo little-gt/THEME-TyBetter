@@ -40,7 +40,7 @@ $this->need('header.php');
                     </li>
                     <li itemprop="interactionCount">
                         <a itemprop="discussionUrl" href="<?php $this->permalink() ?>#comments">
-                            <?php $this->commentsNum('评论', '1 条评论', '%d 条评论'); ?>
+                            <?php $this->commentsNum('留言', '1 条留言', '%d 条留言'); ?>
                         </a>
                     </li>
                 </ul>
