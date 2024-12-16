@@ -11,21 +11,6 @@
         </section>
     <?php endif; ?>
 
-    <?php if (!empty($this->options->sidebarBlock) && in_array('ShowRecentComments', $this->options->sidebarBlock)): ?>
-        <?php $comments = null; // Initialize comments variable ?>
-        <?php $this->widget('Widget_Comments_Recent', 'pageSize=5')->to($comments); // Limit to 5 recent comments ?>
-        <?php if ($comments->have()): // Check if there are any comments ?>
-            <section class="widget">
-                <h3 class="widget-title"><?php _e('最新留言'); ?></h3>
-                <ul class="widget-list">
-                    <?php while($comments->next()): ?>
-                        <li><a href="<?php $comments->permalink(); ?>"><?php $comments->author(false); ?></a>: <?php $comments->excerpt(35, '...'); ?></li>
-                    <?php endwhile; ?>
-                </ul>
-            </section>
-        <?php endif; ?>
-    <?php endif; ?>
-
     <?php if (!empty($this->options->sidebarBlock) && in_array('ShowCategory', $this->options->sidebarBlock)): ?>
         <section class="widget">
             <h3 class="widget-title"><?php _e('分类'); ?></h3>

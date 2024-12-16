@@ -38,11 +38,6 @@ $this->need('header.php');
                         <?php _e('分类: '); ?>
                         <?php $this->category(','); ?>
                     </li>
-                    <li itemprop="interactionCount">
-                        <a itemprop="discussionUrl" href="<?php $this->permalink() ?>#comments">
-                            <?php $this->commentsNum('留言', '1 条留言', '%d 条留言'); ?>
-                        </a>
-                    </li>
                 </ul>
                 <div class="post-content" itemprop="articleBody">
                     <?php

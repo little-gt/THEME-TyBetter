@@ -67,25 +67,6 @@ function themeConfig($form) {
         _t('请在此输入你需要展示在页面角右侧其他说明信息，支持\<a\>标签')
     );
     $form->addInput($footerRecord);
-
-    // reCAPTCHA Site Key 和 Secret Key 配置
-    $recaptchaSiteKey = new Typecho_Widget_Helper_Form_Element_Text(
-        'recaptchaSiteKey',
-        NULL,
-        NULL,
-        _t('reCAPTCHA Site Key'),
-        _t('请输入您的reCAPTCHA Site Key')
-    );
-    $form->addInput($recaptchaSiteKey);
-
-    $recaptchaSecretKey = new Typecho_Widget_Helper_Form_Element_Text(
-        'recaptchaSecretKey',
-        NULL,
-        NULL,
-        _t('reCAPTCHA Secret Key'),
-        _t('请输入您的reCAPTCHA Secret Key')
-    );
-    $form->addInput($recaptchaSecretKey);
 }
 
 /**
