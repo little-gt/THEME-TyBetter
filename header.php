@@ -18,6 +18,12 @@
     <link rel="stylesheet" href="<?php $this->options->themeUrl('css/grid.css'); ?>">
     <link rel="stylesheet" href="<?php $this->options->themeUrl('css/style.css'); ?>">
 
+    <?php if ($this->is('post') && $this->fields->isLatex == 1): ?>
+        <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css" type="text/css" rel="stylesheet" />
+        <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/contrib/auto-render.min.js" type="application/javascript"></script>
+        <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.js" type="application/javascript"></script>
+    <?php endif; ?>
+
     <!--[if lt IE 9]>
     <script src="https://lf6-cdn-tos.bytecdn.com/cdn/expire-1-M/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://lf3-cdn-tos.bytecdn.com/cdn/expire-1-M/respond.js/1.4.2/respond.min.js"></script>

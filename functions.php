@@ -92,3 +92,15 @@ function img_postthumb($cid) {
     }
     return '';  // 如果没有找到图片，则返回空字符串
 }
+
+/**
+ * 文章页面参数 - Letax公式渲染启用设置
+ *
+ */
+function themeFields($layout) {
+    $isLatex = new Typecho_Widget_Helper_Form_Element_Radio('isLatex',
+        array(1 => _t('启用'),
+            0 => _t('关闭')),
+        0, _t('LaTeX 渲染'), _t('默认关闭增加网页访问速度，如文章内存在LaTeX语法则需要启用'));
+    $layout->addItem($isLatex);
+}
